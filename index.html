@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI-Powered Oral Health Screening</title>
+  <style>
+    /* (same styling as before) */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", Arial, sans-serif;
+    }
+    body {
+      background: linear-gradient(135deg, #000 0%, #222 100%);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(4px);
+      box-shadow: 0 2px 8px rgba(255, 255, 255, 0.07);
+    }
+    header h1 {
+      font-size: 1.8rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-weight: 700;
+      cursor: default;
+      color: #0fdcff; /* Neon Accent */
+      text-shadow: 0 0 5px rgba(15, 220, 255, 0.8);
+    }
+    nav {
+      display: flex;
+      gap: 1rem;
+    }
+    nav a {
+      text-decoration: none;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      font-weight: 500;
+      transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    }
+    nav a:hover {
+      background-color: rgba(255, 255, 255, 0.15);
+      color: #0fdcff;
+      box-shadow: 0 0 10px rgba(15, 220, 255, 0.6);
+    }
+    .marquee-container {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 0.5rem 1rem;
+      overflow: hidden;
+      position: relative;
+    }
+    .marquee {
+      display: inline-block;
+      white-space: nowrap;
+      animation: scroll 30s linear infinite;
+      font-weight: 500;
+      color: #0fdcff;
+      text-shadow: 0 0 3px rgba(15, 220, 255, 0.7);
+    }
+    @keyframes scroll {
+      0% {
+        transform: translateX(100%);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+    .main-content {
+      flex: 1;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .info-image-section {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+    }
+    .info-box {
+      flex: 1;
+      min-width: 280px;
+      max-width: 550px;
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(4px);
+      padding: 1.5rem;
+      margin: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 255, 255, 0.1);
+    }
+    .info-box h2 {
+      margin-bottom: 1rem;
+      font-size: 1.4rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #0fdcff;
+      text-shadow: 0 0 5px rgba(15, 220, 255, 0.8);
+    }
+    .info-box p {
+      line-height: 1.6;
+      font-size: 1rem;
+      color: #eee;
+    }
+    .image-box {
+      flex: 1;
+      min-width: 280px;
+      max-width: 450px;
+      margin: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .image-box img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 255, 255, 0.1);
+    }
+    .form-section {
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(4px);
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 255, 255, 0.1);
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+    .form-section h3 {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #0fdcff;
+      text-shadow: 0 0 5px rgba(15, 220, 255, 0.8);
+    }
+    .form-group {
+      margin-bottom: 1rem;
+      display: flex;
+      flex-direction: column;
+    }
+    .form-group label {
+      margin-bottom: 0.4rem;
+      font-weight: 500;
+      color: #ccc;
+    }
+    .form-group input[type="text"],
+    .form-group input[type="number"],
+    .form-group select {
+      padding: 0.6rem;
+      border: 1px solid #555;
+      background-color: #111;
+      color: #fff;
+      border-radius: 4px;
+      outline: none;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+    }
+    .form-group input[type="text"]:focus,
+    .form-group input[type="number"]:focus,
+    .form-group select:focus {
+      border-color: #0fdcff;
+    }
+    .checkbox-group {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .checkbox-group label {
+      font-weight: 400;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #ccc;
+    }
+
+    /* Hide the "Others" text area by default */
+    #othersText {
+      display: none;
+      margin-top: 0.5rem;
+      width: 100%;
+      max-width: 300px;
+      height: 60px;
+      border-radius: 4px;
+      border: 1px solid #555;
+      background-color: #111;
+      color: #fff;
+      padding: 0.5rem;
+      transition: border-color 0.3s ease;
+    }
+    #othersText:focus {
+      border-color: #0fdcff;
+    }
+
+    .btn {
+      background-color: #0fdcff;
+      color: #000;
+      border: none;
+      padding: 0.7rem 1.3rem;
+      font-size: 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: transform 0.3s, box-shadow 0.3s;
+      font-weight: 600;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(15, 220, 255, 0.6);
+    }
+    footer {
+      text-align: center;
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 1rem;
+      font-size: 0.9rem;
+      box-shadow: 0 -2px 8px rgba(255, 255, 255, 0.07);
+      color: #fff;
+    }
+    footer a {
+      color: #0fdcff;
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <!-- -------------- Header -------------- -->
+  <header>
+    <h1>AI-Powered Oral Health</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="help.html">Help</a>
+    </nav>
+  </header>
+
+  <!-- -------------- Scrolling Info -------------- -->
+  
+<div class="marquee-container">
+  <span class="marquee">
+    Oral health is essential to overall well-being • Poor hygiene can lead to dental decay, periodontal disease, and oral cancer •
+    Regular check-ups and early detection are crucial • Maintain proper oral hygiene for a healthy life!
+  </span>
+</div>
+
+  <!-- -------------- Main Content -------------- -->
+  <div class="main-content" id="home">
+    <!-- Two-Column Section -->
+    <div class="info-image-section">
+      <div class="info-box">
+        <h2>Why Oral Health Matters?</h2>
+        <p>
+          Proper oral health care is essential for overall wellness, preventing issues like cavities, gum disease, and serious
+          conditions such as oral cancer. Brushing twice daily, flossing, and using mouthwash help remove plaque and bacteria, 
+          keeping teeth and gums healthy. Regular dental checkups aid in early problem detection, preventing costly treatments. 
+          Good oral hygiene is also linked to overall health, reducing risks of heart disease and diabetes.
+        </p>
+      </div>
+      <div class="image-box">
+        <img 
+          src="https://cdn.prod.website-files.com/62508f9f6fed22f195857e89/625705dbfc039bee5938bfdf_wpid-oral-health-overall-health_35246065.jpeg" 
+          alt="Oral Health" 
+        />
+      </div>
+    </div>
+
+    <!-- Form Section: Personal Details -->
+    <div class="form-section">
+      <h3>Want to Check Your Oral Health?</h3>
+      <form action="/submit_ind2_form" method="POST">
+        <div class="form-group">
+          <label for="userName">Name:</label>
+          <input type="text" id="userName" name="userName" placeholder="Enter your full name" required />
+        </div>
+
+        <div class="form-group">
+          <label for="userAge">Age:</label>
+          <input type="number" id="userAge" name="userAge" placeholder="Enter your age" required />
+        </div>
+
+        <div class="form-group">
+          <label for="userGender">Gender:</label>
+          <select id="userGender" name="userGender" required>
+            <option value="" disabled selected>Select your gender</option>
+            <option value="female">Female</option>
+            <option value="male">Male</option>
+            <option value="other">Other / Prefer not to say</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Are you facing any symptoms?</label>
+          <div class="checkbox-group">
+            <label>
+              <input type="checkbox" name="symptoms" value="Redness" /> Redness
+            </label>
+            <label>
+              <input type="checkbox" name="symptoms" value="Swelling" /> Swelling
+            </label>
+            <label>
+              <input type="checkbox" name="symptoms" value="Bleeding" /> Bleeding
+            </label>
+            <label>
+              <input type="checkbox" name="symptoms" value="Pain" /> Pain
+            </label>
+            <!-- New "Others" checkbox -->
+            <label>
+              <input
+                type="checkbox"
+                name="symptoms"
+                value="Others"
+                onclick="toggleOthers()"
+                id="othersCheckbox"
+              />
+              Others
+            </label>
+          </div>
+
+          <!-- Textarea for "Others" -->
+          <textarea
+            id="othersText"
+            name="othersText"
+            placeholder="Please specify other symptom(s)"
+          ></textarea>
+        </div>
+
+        <button class="btn" type="submit">Next</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- -------------- Footer -------------- -->
+  <footer id="help">
+    <p>&copy; 2025 Oral Health AI</p>
+  </footer>
+
+  <!-- -------------- Script to Toggle Textarea -------------- -->
+  <script>
+    function toggleOthers() {
+      const othersCheckbox = document.getElementById("othersCheckbox");
+      const othersText = document.getElementById("othersText");
+      if (othersCheckbox.checked) {
+        othersText.style.display = "block";
+      } else {
+        othersText.style.display = "none";
+      }
+    }
+  </script>
+</body>
+</html>

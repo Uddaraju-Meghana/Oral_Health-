@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Oral Health Screening - Choose Option</title>
+  <style>
+    /* ------------------ Global Reset & Box-Sizing ------------------ */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", Arial, sans-serif;
+    }
+
+    /* ------------------ Body & Basic Layout (Black Theme) ------------------ */
+    body {
+      background: linear-gradient(135deg, #000 0%, #222 100%);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ------------------ Header Section ------------------ */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(0, 0, 0, 0.8);
+      box-shadow: 0 2px 8px rgba(255, 255, 255, 0.07);
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: #0fdcff; /* Neon Accent */
+      text-shadow: 0 0 5px rgba(15, 220, 255, 0.8);
+      cursor: default;
+    }
+
+    nav {
+      display: flex;
+      gap: 1rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      font-weight: 500;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    nav a:hover {
+      background-color: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 10px rgba(15, 220, 255, 0.6);
+      color: #0fdcff;
+    }
+
+    /* ------------------ Main Content ------------------ */
+    .main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .main-content h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+      color: #0fdcff;
+      text-shadow: 0 0 5px rgba(15, 220, 255, 0.8);
+    }
+
+    .main-content p {
+      font-size: 1rem;
+      color: #ddd;
+      margin-bottom: 2rem;
+      line-height: 1.6;
+      max-width: 800px;
+    }
+
+    /* ------------------ Button Section ------------------ */
+    .button-container {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .option-btn {
+      background-color: #0fdcff;
+      color: #000;
+      border: none;
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .option-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(15, 220, 255, 0.5);
+    }
+
+    /* ------------------ Decorative Section (Optional) ------------------ */
+    .info-section {
+      margin-top: 3rem;
+      text-align: center;
+      color: #aaa;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .info-section h3 {
+      font-size: 1.4rem;
+      color: #0fdcff;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 5px rgba(15, 220, 255, 0.7);
+    }
+
+    .info-section p {
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+
+    /* ------------------ Footer ------------------ */
+    footer {
+      text-align: center;
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 1rem;
+      font-size: 0.9rem;
+      box-shadow: 0 -2px 8px rgba(255, 255, 255, 0.07);
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <!-- ------------------ Header ------------------ -->
+  <header>
+    <h1>Oral Health AI</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="help.html">Help</a>
+    </nav>
+  </header>
+
+  <!-- ------------------ Main Content ------------------ -->
+  <div class="main-content">
+    <h2>Choose Your Option</h2>
+    <p>
+      Welcome to our AI-Powered Oral Health screening. We offer two features to help you 
+      better understand and address oral health issues. Select one of the options below 
+      to proceed:
+    </p>
+
+    <!-- Button Section -->
+    <div class="button-container">
+      <!-- 1. Link to Disease Classification Page -->
+      <button class="option-btn"
+        onclick="location.href='/record_option?option=classification'">
+        Want to know what disease you have
+        </button>
+
+      <button class="option-btn"
+        onclick="location.href='/record_option?option=segmentation'">
+        Want to know where the disease is
+        </button>
+    </div>
+
+    <!-- Optional Additional Info Section -->
+    <div class="info-section">
+      <h3>How our AI helps you</h3>
+      <p>
+        Our advanced AI algorithms analyze your uploaded images to identify 
+        potential dental or gum issues, providing recommendations or next steps 
+        tailored just for you.
+      </p>
+      <p>
+        Early detection is crucial in managing oral health effectively. 
+        Don’t ignore symptoms like pain, redness, or swelling. Let us assist you 
+        in taking proactive steps for a healthier smile!
+      </p>
+    </div>
+  </div>
+
+  <!-- ------------------ Footer ------------------ -->
+  <footer>
+    <p>&copy; 2025 Oral Health AI. All rights reserved.</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,361 @@
+html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Oral Disease Identification</title>
+  <style>
+    /* ------------------ Global Reset & Box-Sizing ------------------ */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", Arial, sans-serif;
+    }
+
+    /* ------------------ Body & Basic Layout (Black Theme) ------------------ */
+    body {
+      background: linear-gradient(135deg, #000 0%, #222 100%);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ------------------ Header Section ------------------ */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(0, 0, 0, 0.8);
+      box-shadow: 0 2px 8px rgba(255, 255, 255, 0.07);
+    }
+    header h1 {
+      font-size: 1.8rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: #0fdcff; /* Neon Accent */
+      text-shadow: 0 0 5px rgba(15, 220, 255, 0.8);
+      cursor: default;
+    }
+    nav {
+      display: flex;
+      gap: 1rem;
+    }
+    nav a {
+      text-decoration: none;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      font-weight: 500;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    nav a:hover {
+      background-color: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 10px rgba(15, 220, 255, 0.6);
+      color: #0fdcff;
+    }
+
+    /* ------------------ Main Content Container ------------------ */
+    .main-content {
+      flex: 1;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    /* ------------------ Section Titles ------------------ */
+    .section-title {
+      font-size: 1.8rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #0fdcff;
+      text-shadow: 0 0 5px rgba(15, 220, 255, 0.8);
+      margin-bottom: 1rem;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    /* ------------------ Guide Section ------------------ */
+    .guide-section {
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(4px);
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 255, 255, 0.1);
+    }
+    .guide-section h2 {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      color: #0fdcff;
+      text-transform: uppercase;
+      text-shadow: 0 0 5px rgba(15, 220, 255, 0.8);
+    }
+    .guide-section p {
+      color: #ddd;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+    .guide-section h3 {
+      margin-top: 1.5rem;
+      color: #0fdcff;
+      font-size: 1.1rem;
+      text-shadow: 0 0 4px rgba(15, 220, 255, 0.6);
+    }
+    .guide-list {
+      margin-top: 1rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+      color: #ccc;
+    }
+    .guide-list li {
+      margin-bottom: 1.2rem;
+    }
+    /* Style for images used in the Do's and Don'ts */
+    .guide-img {
+      display: block;
+      margin: 0.5rem 0 0.5rem 1.5rem; /* small indent for images */
+      width: 220px; /* adjust as needed */
+      border-radius: 6px;
+      box-shadow: 0 4px 8px rgba(0, 255, 255, 0.1);
+    }
+
+    /* ------------------ Classification Container ------------------ */
+    .classification-container {
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(4px);
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 255, 255, 0.1);
+      text-align: center;
+    }
+    .classification-container p {
+      color: #ddd;
+      margin-bottom: 1rem;
+    }
+    #classifyUpload {
+      margin-bottom: 1rem;
+    }
+    .classification-btn {
+      background-color: #0fdcff;
+      color: #000;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      font-size: 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+      font-weight: 600;
+    }
+    .classification-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(15, 220, 255, 0.6);
+    }
+    .results-container {
+      margin-top: 1.5rem;
+      color: #fff;
+    }
+    #consultMessage {
+      color: #ff4d4d;
+      font-weight: bold;
+    }
+
+    /* ------------------ Refresh Button ------------------ */
+    #refreshBtn {
+      display: none;
+      margin-top: 1rem;
+      background-color: #0fdcff;
+      color: #000;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      font-size: 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+      font-weight: 600;
+    }
+    #refreshBtn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(15, 220, 255, 0.6);
+    }
+
+    /* ------------------ Footer Section ------------------ */
+    footer {
+      text-align: center;
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 1rem;
+      font-size: 0.9rem;
+      box-shadow: 0 -2px 8px rgba(255, 255, 255, 0.07);
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <!-- ------------------ Header ------------------ -->
+  <header>
+    <h1>Oral Health AI</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="help.html">Help</a>
+    </nav>
+  </header>
+
+  <!-- ------------------ Main Content ------------------ -->
+  <div class="main-content">
+    <!-- Intraoral Image Guide Section -->
+    <div class="guide-section">
+      <h2>How to Capture Intraoral Images</h2>
+      <p>
+        Proper images help our AI identify potential issues more accurately.
+        Follow these guidelines for the best results:
+      </p>
+
+      <h3>Do’s</h3>
+      <ul class="guide-list">
+        <img 
+            class="guide-img" 
+            src="do.jpg" 
+            alt="Proper lighting example"
+          />
+        <li>
+          Use a well-lit area, preferably with natural light or a bright flashlight.
+          <br />
+          
+        </li>
+        <li>
+          Gently pull back your cheeks or lips to clearly expose the teeth and gums.
+          <br />
+          
+        </li>
+        <li>
+          Take multiple pictures (front, left, right) to capture all sides.
+          <br />
+          
+        </li>
+      </ul>
+
+      <h3>Don’ts</h3>
+      <ul class="guide-list">
+        <img 
+            class="guide-img"
+            src="don't.jpg"
+            alt="Blurry image example"
+          />
+        <li>
+          Don’t use blurry or out-of-focus images—our AI may not detect issues accurately.
+          <br />
+          
+        </li>
+        <li>
+          Don’t take photos in dimly lit rooms or where shadows hide important details.
+          <br />
+          
+        </li>
+        <li>
+          Don’t apply filters that change the natural color of your teeth or gums.
+          <br />
+          
+        </li>
+      </ul>
+    </div>
+
+    <!-- Classification Container -->
+    <div class="classification-container">
+      <h2 class="section-title">Oral Disease Identification</h2>
+      <p>Upload an image to classify the oral health condition.</p>
+      <input type="file" id="classifyUpload" />
+      <button class="classification-btn" onclick="classifyImage()">Classify</button>
+
+      <div class="results-container">
+        <h3>Result:</h3>
+        <p id="diseaseResult"></p>
+        <p id="recommendations"></p>
+        <p id="consultMessage"></p>
+      </div>
+
+      <!-- Refresh Button -->
+      <button onclick="location.reload()" id="refreshBtn">Refresh</button>
+    </div>
+  </div>
+
+  <!-- ------------------ Footer ------------------ -->
+  <footer>
+    <p>&copy; 2025 Oral Health AI. All rights reserved.</p>
+  </footer>
+
+  <!-- ------------------ JavaScript Classification Logic ------------------ -->
+  <script>
+    function classifyImage() {
+      const fileInput = document.getElementById("classifyUpload");
+      if (!fileInput.files.length) {
+        alert("Please select an image first.");
+        return;
+      }
+  
+      const formData = new FormData();
+      formData.append("image", fileInput.files[0]);
+  
+      fetch("/classify", {
+        method: "POST",
+        body: formData
+      })
+        .then(response => response.json())
+        .then(data => {
+          let diseaseInfo = "";
+          let recommendations = "";
+          let consultMessage =
+            '<span style="color: #ff4d4d; font-weight: bold;">Please do visit Doctor at the earliest for further diagnosis.</span>';
+  
+          switch (data.disease) {
+            case "Caries":
+              diseaseInfo = `
+                <strong>Disease:</strong> Caries<br />
+                <strong>Consequences:</strong> Can spread to adjacent teeth, leading to restoration or root canal.<br />
+                <strong>Diagnosis:</strong> Requires immediate dental intervention to prevent severe damage.<br />
+                <strong>Precautions:</strong> Brush twice a day, use dental floss, and avoid using sharp objects like safety pins or toothpicks.
+              `;
+              break;
+  
+            case "Calculus":
+              diseaseInfo = `
+                <strong>Disease:</strong> Calculus<br />
+                <strong>Consequences:</strong> Can spread to other teeth, potentially leading to gum inflammation and the need for oral prophylaxis.<br />
+                <strong>Diagnosis:</strong> Oral Prophylaxis is recommended to remove the buildup and prevent further complications.<br />
+                <strong>Precautions:</strong> Brush regularly, use floss, and include mouth rinse or mouthwash in your routine.
+              `;
+              break;
+  
+            case "Gingivitis":
+              diseaseInfo = `
+                <strong>Disease:</strong> Gingivitis<br />
+                <strong>Consequences:</strong> Can spread to adjacent gums, leading to bone loss and requiring professional care.<br />
+                <strong>Diagnosis:</strong> Oral Prophylaxis and proper gum treatment can help reverse the condition.<br />
+                <strong>Precautions:</strong> Brush and floss regularly, use an antibacterial mouthwash, and maintain proper oral hygiene.
+              `;
+              break;
+  
+            default:
+              diseaseInfo = "No disease detected or unclassified.";
+              consultMessage = "";
+              break;
+          }
+  
+          document.getElementById("diseaseResult").innerHTML = diseaseInfo;
+          document.getElementById("recommendations").innerHTML = recommendations;
+          document.getElementById("consultMessage").innerHTML = consultMessage;
+  
+          // Show the refresh button after displaying results
+          document.getElementById("refreshBtn").style.display = "inline-block";
+        })
+        .catch(error => console.error("Error:", error));
+    }
+  </script>
+  
+</body>
+</html>
